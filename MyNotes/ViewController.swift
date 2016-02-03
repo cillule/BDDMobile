@@ -30,18 +30,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        //let noteManager
         let noteManager = NoteManager();
-        
-        noteManager.createNote("My First Note", texte: "Balabalaaa")
-        
+        noteManager.createNote("My First Note", text: "Balabalaaa")
         title = "\"-- My Notes ---\""
         tableView.registerClass(UITableViewCell.self,
             forCellReuseIdentifier: "cell")
-
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,17 +50,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")
-        
         let currentNote = myNotes[indexPath.row]
-        
-        
         cell!.textLabel!.text = currentNote.valueForKey("title") as? String
-    
-        //cell!.
-        //cell?.detailtextLabel?.text = "My Text"
-        
         return cell!
     }
     

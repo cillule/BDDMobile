@@ -1,8 +1,8 @@
 //
-//  Note+CoreDataProperties.swift
+//  Picture+CoreDataProperties.swift
 //  MyNotes
 //
-//  Created by iem on 03/02/2016.
+//  Created by Alexis LP on 03/02/2016.
 //  Copyright © 2016 iem. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -12,12 +12,11 @@
 import Foundation
 import CoreData
 
-extension Note {
+extension Picture {
 
-    @NSManaged var createdAt: NSDate
-    @NSManaged var title: String?
-    @NSManaged var updatedAt: NSDate
-    @NSManaged var text: String?
-    @NSManaged var category: Category?
+    @NSManaged var picture: NSData?
+    @NSManaged var createdAt: NSDate?
+    @NSManaged var updateAt: NSDate?
+    @NSManaged var notes: NSSet?
 
 }
