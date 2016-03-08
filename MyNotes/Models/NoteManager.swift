@@ -39,6 +39,18 @@ class NoteManager: NSObject {
         return note
     }
     
+    func removeNote(note:Note?){
+        
+        if let noteToDelete = note {
+            appDelegate.managedObjectContext.deleteObject(noteToDelete)
+            do{
+                try appDelegate.managedObjectContext.save()
+            } catch let error as NSError {
+                print("Could not remove \(error), \(error.userInfo)")
+            }
+        }
+    }
+    
     func fetchNotes() -> [Note]? {
         let fetchRequest = NSFetchRequest(entityName: "Note")
         let dateSortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)

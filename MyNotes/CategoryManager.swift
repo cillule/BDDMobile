@@ -44,6 +44,19 @@ class CategoryManager: NSObject{
         
     }
     
+    
+    func removeCategory(category:Category?){
+        
+        if let categoryToDelete = category {
+            appDelegate.managedObjectContext.deleteObject(categoryToDelete)
+            do{
+                try appDelegate.managedObjectContext.save()
+            } catch let error as NSError {
+                print("Could not remove \(error), \(error.userInfo)")
+            }
+        }
+    }
+    
     func fetchCategories() ->[Category]?{
         
         let fetchRequest = NSFetchRequest(entityName: "Category")

@@ -14,9 +14,9 @@ class ViewController2: UIViewController,  UITableViewDelegate, UITableViewDataSo
     // MARK: Properties
     @IBOutlet weak var titleContent: UITextField!
     @IBOutlet weak var texteContent: UITextView!
-    @IBOutlet weak var saveButton: UINavigationItem!
     @IBOutlet weak var categoryTableView: UITableView!
     
+   
     var myCategories: [Category]?
     var note: Note?
     
@@ -37,19 +37,24 @@ class ViewController2: UIViewController,  UITableViewDelegate, UITableViewDataSo
         categoryTableView.reloadData()
     }
 
-    @IBAction func buttonSaveClick(sender: AnyObject) {
-        
-        let noteManager = NoteManager();
-        noteManager.createNote( titleContent.text, text: texteContent.text)
-        note?.title = titleContent.text
-        note?.text = texteContent.text
-        
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: UITableViewDelegate
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
+        
+        if editingStyle == .Delete {
+            // Delete from CoreData
+            CategoryManager().removeCategory(myCategories![indexPath.row])
+            // Delete the row from the data source
+            myCategories?.removeAtIndex(indexPath.row)
+            categoryTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
     
     //MARK: UITableViewDataSource
@@ -71,6 +76,20 @@ class ViewController2: UIViewController,  UITableViewDelegate, UITableViewDataSo
     }
     
     // MARK: Actions
+    
+    @IBAction func buttonBackClicked(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func buttonSaveClicked(sender: AnyObject) {
+        
+        let noteManager = NoteManager();
+        noteManager.createNote( titleContent.text, text: texteContent.text)
+        note?.title = titleContent.text
+        note?.text = texteContent.text
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     
     // MARK: - Navigation
