@@ -17,7 +17,7 @@ class NoteManager: NSObject {
     }
     
     var managedObjectContext: NSManagedObjectContext{
-        return appDelegate.managedObjectContext;
+        return appDelegate.managedObjectContext
     }
     
     func createNote(title:String? , text:String?) -> Note{
@@ -43,6 +43,8 @@ class NoteManager: NSObject {
         let fetchRequest = NSFetchRequest(entityName: "Note")
         let dateSortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)
         fetchRequest.sortDescriptors = [dateSortDescriptor]
+        fetchRequest.fetchBatchSize = 20
+        
         do {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest) as! [Note]
             return results
